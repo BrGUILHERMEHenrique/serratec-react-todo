@@ -1,0 +1,36 @@
+{
+  "tarefas": [
+    {
+      "descricao": "Aprender react",
+      "concluido": true,
+      "id": 1
+    },
+    {
+      "decricao": "Json-server",
+      "concluido": true,
+      "id": 2
+    },
+    {
+      "descricao": "JSON",
+      "concluido": true,
+      "id": 3
+    },
+    {
+      "descricao": "Axios",
+      "concluido": true,
+      "id": 4
+    }
+  ],
+  "usuarios": [
+    {
+      "id": 1,
+      "email": "diego@domob.me",
+      "password": "123123"
+    },
+    {
+      "email": "adm@adm.com",
+      "password": "admin",
+      "id": 2
+    }
+  ]
+}
