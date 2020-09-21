@@ -9,6 +9,7 @@ const GlobalStyle = createGlobalStyle`
 
     body, html, #root{
         height: 100%;
+
     }
 
     #root{

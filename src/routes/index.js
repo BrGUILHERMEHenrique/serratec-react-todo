@@ -5,6 +5,7 @@ import Dashboard from '../pages/Dashboard';
 import Tarefas from '../pages/tarefas'
 
 const Routes = () => (
+    //switch aqui tá garantindo que somente um component(page) vai ser mostrada
     <Switch>
 
         <Route exact path="/" />

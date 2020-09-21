@@ -1,8 +1,10 @@
 import React,{ useEffect, useState } from 'react';
 
 import api from '../../services/api';
+import Loading from '../../components/Loading';
 
-import Container from './styles'
+import { Container } from './styles';
+
 
 const Dashboard = () =>{
     const [tarefas, setTarefas] = useState([]);
@@ -36,9 +38,7 @@ const Dashboard = () =>{
         );
     }else{
         return( 
-            <>
-                <h1>Loading...</h1>
-            </>
+            <Loading />
         )
     }
 
