@@ -1,47 +1,84 @@
-import React,{ useEffect, useState } from 'react';
+import React,{ useEffect, useState, useCallback, useMemo } from 'react';
 
 import api from '../../services/api';
 import Loading from '../../components/Loading';
 
-import { Container } from './styles';
-
+import { ErrorMessage } from './styles';
+import Header from '../../components/Header';
 
 const Dashboard = () =>{
-    const [tarefas, setTarefas] = useState([]);
-    const [error, setError] = useState('');
+    const [tasks, setTasks] = useState([]);
+    const [errorMessage, setErrorMessage] = useState('');
     const [load, setLoad] = useState(false);
+    // const [concluida, setConcluida] = useState(0);
+    // const [pendente, setPendente] = useState(0);
 
-    let contadorFalse = 0;
-    let contadorTrue = 0;
+    let concluidas = 0;
+    let pendentes = 0;
 
-    useEffect(() => {
-        api.get('tarefas')
-        .then(res => {
-            setTarefas(res.data);
-            setLoad(true);
-        })
-        .catch(err => {
-            setError(err.message)
-            setLoad(true);
-        })
-    },[])
-    if(load){
-        tarefas.map(tarefa => {
-            tarefa.concluido ? contadorTrue++ : contadorFalse++;
-        })
-        return(
-            <Container >
-                {error? <h1>{error}</h1> : null}
-                <h1>Tarefas concluidas: {contadorTrue === tarefas.length ? "Parabéns todas as tarefas foram concluidas!" : contadorTrue}</h1>
-                <h1>Tarefas não concluidas: {contadorFalse}</h1>
-            </Container>
-        );
-    }else{
-        return( 
-            <Loading />
+    // const loadTasks = async () => {
+    //     try{
+    //         const response = await api.get('tarefas')
+    //         setTasks(response.data);
+    //         setLoad(true);
+    //     } catch (err){
+    //         setErrorMessage(err.message);
+    //         setLoad(true);
+    //     }
+    // }
+
+    const loadTasks = useCallback(
+        async () => {
+            try{
+                const response = await api.get('tarefas')
+                setTasks(response.data);
+                setLoad(true);
+                console.log(response.data);
+            } catch (err){
+                setErrorMessage(err.message);
+                setLoad(true);
+            }
+        }, []
+        )   
+
+        const qntTotalTasks = useMemo(
+            () => tasks.length, [tasks]
+
         )
-    }
 
+        const qntConcluedTasks = useMemo(
+            () => {
+                const filtered = tasks.filter(task => {
+                    return task.concluido === true
+                });
+
+                return filtered.length;
+            }, [tasks]
+        )
+
+        const pendingTasks = useMemo(
+            () => {
+                return qntTotalTasks - qntConcluedTasks;
+            }, [tasks]
+        )
+
+     useEffect(() => {
+       loadTasks();
+    },[loadTasks])
+        
+
+        return(
+            <>
+              <Header title={'Resumo'}/>
+              {
+                !load ? <Loading /> :
+                errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>
+                }
+                <p><b> Total de Tarefas </b> {qntTotalTasks}</p>
+                <h2>Tarefas concluidas: {qntConcluedTasks}</h2>
+                <h2>Pendentes: {pendingTasks === 0 ? 'Parabéns Todas as tarefas foram concluidas!' : pendingTasks}</h2>
+            </>
+        );
 }
 
 export default Dashboard;

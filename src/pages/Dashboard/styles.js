@@ -6,4 +6,11 @@ background-color: ${props => props.ativo?'#f0f0f5':'#000'};
 color: white;
 `;
 
+export const ErrorMessage = styled.span `
+
+display:block;
+color: #c53030;
+margin-top: 10px;
+
+`;
 
