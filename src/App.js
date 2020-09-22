@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 
-import api from './services/api';
 
 
 import Routes from './routes';
