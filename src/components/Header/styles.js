@@ -3,7 +3,7 @@ import {
     shade
 } from 'polished';
 
-export const Header = styled.div `
+export const Container = styled.div `
 
 display:flex;
 justify-content: space-between;
@@ -36,6 +36,10 @@ ul{
     }
 }
 
+`;
+export const Title = styled.h1 `
+    font-size: 36px;
+    color: #3a3a3a;
 `;
 
 export const Form = styled.form `
@@ -74,52 +78,3 @@ export const Form = styled.form `
     }
 `;
 
-export const ErrorMessage = styled.span `
-
-display:block;
-color: #c53030;
-margin-top: 10px;
-
-`;
-
-export const Tasks = styled.div `
-
-margin-top: 40px;
-max-width: 700px;
-
-div{
-    background: #fff;
-    border-radius: 5px;
-    padding: 25px;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    transition: 0.6s;
-    & + div{
-        margin-top: 16px;
-    }
-
-    &:hover{
-        transform: translateX(10px);
-    }
-
-    strong{
-        font-size: 20px;
-        color: #3d3d4d;
-        margin-right: 25px;
-
-
-   }
-    
-
-    span{
-        margin-left: auto;
-        
-    }
-
-    svg{
-        color: #cbcbd6;
-        cursor: pointer;
-    }
-}
-`;
